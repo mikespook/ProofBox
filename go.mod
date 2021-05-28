@@ -1,3 +1,3 @@
-module itea.co.nz/proofbox
+module mikespook.com/proofbox
 
 go 1.16
