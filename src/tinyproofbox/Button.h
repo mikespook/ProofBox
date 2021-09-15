@@ -1,21 +1,25 @@
 #ifndef TPB_BUTTON_H
 #define TPB_BUTTON_H
 
-#include "config.h"
+#include <Arduino.h>
 
 class ButtonClass {
+	const static uint8_t Pin = 3;
+	const static uint16_t Tick = 100;
+	const static uint8_t Count = 12;
+
 	public:
 		void setup();
-		uint8_t countdown();
+		void onChange();
 		bool pressed();
-		void onPress();
-		void onRelease();
+		uint8_t countdown();
 	private:
-		uint8_t _count = 0;
+		uint8_t _count = Count;
 		uint64_t _pressed = 0; 
 };
 
+static ButtonClass *button;
 static ButtonClass Button;
-void buttonPressed();
-void buttonReleased();
+
+static void ButtonOnChange();
 #endif

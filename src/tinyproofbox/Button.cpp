@@ -1,34 +1,37 @@
 #include "Button.h"
 
 void ButtonClass::setup() {
-	pinMode(TPB_BUTTON_PIN, INPUT_PULLUP);
+	button = this;
+	pinMode(Pin, INPUT_PULLUP);
 
-	attachInterrupt(digitalPinToInterrupt(TPB_BUTTON_PIN),
-			buttonPressed, FALLING);
-	attachInterrupt(digitalPinToInterrupt(TPB_BUTTON_PIN),
-			buttonReleased, RISING);
+	attachInterrupt(digitalPinToInterrupt(Pin),	ButtonOnChange, CHANGE);
+	
+	_pressed = millis(); 
+	_count = Count;
 }
 
-uint8_t ButtonClass::countdown() {
-	return _count--;
+void ButtonClass::onChange() {
+	_pressed = LOW == digitalRead(Pin);
+	if (!_pressed) {
+		_count = Count;
+	}	
 }
 
 bool ButtonClass::pressed() {
-	return _pressed != 0;
+	return _pressed;
 }
 
-void ButtonClass::onRelease() {
-	_pressed = 0;
+uint8_t ButtonClass::countdown() {
+	delay(Tick);
+	_count--;
+	if (0 == _count) {
+		_count = Count;
+		return 0;
+	}
+	return _count;
 }
 
-void ButtonClass::onPress() {
-	_pressed = millis();
-}
-
-void buttonPressed() {
-	Button.onPress();
-}
-
-void buttonReleased() {
-	Button.onRelease();
+void ButtonOnChange() {
+	Serial.println("change");
+	button->onChange();
 }
