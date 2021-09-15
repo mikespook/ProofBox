@@ -1,10 +1,10 @@
 #include "ProofBox.h"
 
 ProofBoxClass::ProofBoxClass() {
-	_dht = new DHT(TPB_DHT_PIN, DHT11);
+	_dht = new DHT(PinDHT, DHT11);
 }
 
-void ProofBoxClass::loop() {
+void ProofBoxClass::loop(float *t, float *h) {
 	int now = millis();
 	if (_nextHeatOff < now) {
 		Heater.off();
@@ -30,27 +30,28 @@ void ProofBoxClass::loop() {
 			_off();
 			return;
 	}
-	float t = _dht->readTemperature();
-	if (t < min) {
+	*t = _dht->readTemperature();
+	if (*t < min) {
 		Fan.on();
 		Heater.on();
-		_nextHeatOff = now + TPB_HEAT_TIME;
-		_nextFanOff = _nextHeatOff + TPB_FAN_TIME;
+		_nextHeatOff = now + HeatTick;
+		_nextFanOff = _nextHeatOff + FanTick;
 		return;
 	}
 	Heater.off();
-	if (t > max) {
-		_nextFanOff += TPB_FAN_TIME;
+	if (*t > max) {
+		_nextFanOff += FanTick;
 	}
 }
 
 void ProofBoxClass::_off() {
-	_nextHeatOff = millis() - TPB_HEAT_TIME;
+	_nextHeatOff = millis() - HeatTick;
 	Heater.off();
-	_nextFanOff += TPB_FAN_TIME; 
+	_nextFanOff += FanTick; 
 }
 
-void ProofBoxClass::next() {
-	if (_program > 4) _program = StateOff;
+uint8_t ProofBoxClass::next() {
 	_program ++;
+	if (_program > StateProof2) _program = StateOff;
+	return _program;
 }

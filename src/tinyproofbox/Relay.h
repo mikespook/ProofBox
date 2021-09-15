@@ -2,10 +2,12 @@
 #define TPB_RELAY_H
 
 #include <Arduino.h>
-#include "config.h"
 
 class RelayClass {
 	public:
+		const static uint8_t PinHeater = 7;
+		const static uint8_t PinFan = 8;
+
 		RelayClass(int pin);
 		void off();		
 		void on();
@@ -14,7 +16,7 @@ class RelayClass {
 		int _pin;
 };
 
-static RelayClass Heater(TPB_HEATER_PIN);
-static RelayClass Fan(TPB_FAN_PIN);
+static RelayClass Heater(RelayClass::PinHeater);
+static RelayClass Fan(RelayClass::PinFan);
 
 #endif

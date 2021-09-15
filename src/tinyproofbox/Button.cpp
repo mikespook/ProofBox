@@ -32,6 +32,5 @@ uint8_t ButtonClass::countdown() {
 }
 
 void ButtonOnChange() {
-	Serial.println("change");
 	button->onChange();
 }
