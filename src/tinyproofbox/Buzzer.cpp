@@ -1,48 +1,37 @@
 #include "Buzzer.h"
 
-void BuzzerClass::setup() {
+const uint16_t BuzzerClass::Starter[] = {NoteE, NoteC, NoteE, NoteG};
+const uint16_t BuzzerClass::Proof1[] = {NoteC, NoteE, NoteG, NoteG};
+const uint16_t BuzzerClass::Proof2[] = {NoteD, NoteF, NoteA, NoteA};
+const uint16_t BuzzerClass::On[] = {NoteC, NoteG};
+const uint16_t BuzzerClass::Off[] = {NoteG, NoteC};
+const uint16_t BuzzerClass::Exceeded[] = {NoteA};
+	
+
+void BuzzerClass::begin() {
 	pinMode(Pin, OUTPUT);
 }
 
 void BuzzerClass::starter() {
-  tone(Pin, NoteE, Tick);
-  delay(Tick);  
-  tone(Pin, NoteC, Tick);
-  delay(Tick);  
-  tone(Pin, NoteE, Tick);  
-  delay(Tick);  
-  tone(Pin, NoteG, Tick); 
+	play(Starter);
 }
 
 void BuzzerClass::proof1() {
-  tone(Pin, NoteC, Tick);
-  delay(Tick);  
-  tone(Pin, NoteE, Tick);
-  delay(Tick);  
-  tone(Pin, NoteG, Tick);  
+	play(Proof1);
 }
 
 void BuzzerClass::proof2() {
-  tone(Pin, NoteD, Tick);
-  delay(Tick);  
-  tone(Pin, NoteF, Tick);
-  delay(Tick);  
-  tone(Pin, NoteA, Tick);  
+	play(Proof2);
 }
 
 void BuzzerClass::on() {
-  tone(Pin, NoteC, Tick);
-  delay(Tick);  
-  tone(Pin, NoteG, Tick);
+	play(On);
 }
 
 void BuzzerClass::off() {
-  tone(Pin, NoteG, Tick);
-  delay(Tick);  
-  tone(Pin, NoteC, Tick);
+	play(Off);
 }
 
 void BuzzerClass::exceeded() {
-  tone(Pin, NoteA, Tick); 
-  delay(Tick);
+	play(Exceeded);
 }

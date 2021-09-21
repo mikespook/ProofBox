@@ -4,22 +4,19 @@
 #include <Arduino.h>
 
 class ButtonClass {
-	const static uint8_t Pin = 3;
-	const static uint16_t Tick = 100;
-	const static uint8_t Count = 12;
+	const static uint8_t Pin = 2;
+	const static uint16_t Tick = 50;
 
 	public:
-		void setup();
+		const static uint8_t Count = 16;
+
+		void begin();
 		void onChange();
 		bool pressed();
 		uint8_t countdown();
 	private:
-		uint8_t _count = Count;
-		uint64_t _pressed = 0; 
+		uint8_t count = Count;
 };
 
-static ButtonClass *button;
 static ButtonClass Button;
-
-static void ButtonOnChange();
 #endif

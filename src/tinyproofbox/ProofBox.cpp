@@ -1,19 +1,30 @@
 #include "ProofBox.h"
 
-ProofBoxClass::ProofBoxClass() {
-	_dht = new DHT(PinDHT, DHT11);
+void ProofBoxClass::begin() {
+	dht = new DHT(PinDHT, DHT11);
+	dht->begin();
+	program = EEPROM.read(0);
 }
 
-void ProofBoxClass::loop(float *t, float *h) {
+bool ProofBoxClass::loop(float *t, float *h) {
 	int now = millis();
-	if (_nextHeatOff < now) {
+	if (ReadGap > (now - lastRead)) {
+		return true;
+	}
+	lastRead = now;
+	*t = dht->readTemperature();
+	*h = dht->readHumidity();
+	if (isnan(*h) || isnan(*t)) {
+    	return false;
+	}	
+	if (nextHeatOff < now) {
 		Heater.off();
 	}
-	if (_nextFanOff < now) {
+	if (nextFanOff < now) {
 		Fan.off();
 	}
 	float min, max;
-	switch(_program) {
+	switch(program) {
 		case StateStarter:
 			min = StarterMin;
 			max = StarterMax;
@@ -27,31 +38,32 @@ void ProofBoxClass::loop(float *t, float *h) {
 			max = Proof2Max;
 			break;
 		default:
-			_off();
-			return;
+			off();
+			return true;
 	}
-	*t = _dht->readTemperature();
 	if (*t < min) {
 		Fan.on();
 		Heater.on();
-		_nextHeatOff = now + HeatTick;
-		_nextFanOff = _nextHeatOff + FanTick;
-		return;
+		nextHeatOff = now + HeatTick;
+		nextFanOff = nextHeatOff + FanTick;
+		return true;
 	}
 	Heater.off();
 	if (*t > max) {
-		_nextFanOff += FanTick;
+		nextFanOff += FanTick;
 	}
+	return true;
 }
 
-void ProofBoxClass::_off() {
-	_nextHeatOff = millis() - HeatTick;
+void ProofBoxClass::off() {
+	nextHeatOff = millis() - HeatTick;
 	Heater.off();
-	_nextFanOff += FanTick; 
+	nextFanOff += FanTick; 
 }
 
 uint8_t ProofBoxClass::next() {
-	_program ++;
-	if (_program > StateProof2) _program = StateOff;
-	return _program;
+	program ++;
+	if (program > StateProof2) program = StateOff;
+	EEPROM.write(0, program);
+	return program;
 }

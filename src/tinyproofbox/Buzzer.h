@@ -14,9 +14,25 @@ class BuzzerClass {
 	const static uint16_t NoteG = 392;
 	const static uint16_t NoteA = 440;
 	const static uint16_t NoteB = 494;
+
+	const static uint16_t Starter[];
+	const static uint16_t Proof1[];
+	const static uint16_t Proof2[];
+	const static uint16_t On[];
+	const static uint16_t Off[];
+	const static uint16_t Exceeded[];
 	
+	void play(uint16_t seq[]) {
+		size_t l = *(&seq + 1) - seq; // kichiku
+	
+		for(int i = 0; i < l; i++) {
+			tone(Pin, seq[i], Tick);
+			delay(Tick);
+		}
+	}
+
 	public:
-		void setup();
+		void begin();
 		void starter();
 		void proof1();
 		void proof2();
