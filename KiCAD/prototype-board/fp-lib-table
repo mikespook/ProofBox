@@ -1,3 +1,0 @@
-(fp_lib_table
-  (lib (name prototype-board)(type KiCad)(uri ${KIPRJMOD}/Prototype-Board/prototype-board.pretty)(options "")(descr ""))
-)
