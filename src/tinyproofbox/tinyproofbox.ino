@@ -13,6 +13,7 @@ void setup() {
 	Buzzer.begin();
 	Buzzer.on();
 	LCD.begin();
+	LCD.clear();
 	LCD.backlight();
 	delay(500);
 	ProofBox.begin();
@@ -51,12 +52,12 @@ void loop() {
 			uint8_t n = ProofBox.next();
 			switch(n) {
 				case 0:
-					sprintf(step, "Off %d-%d%cC", ProofBoxClass::StarterMin, ProofBoxClass::StarterMax, 0xDF);
+					sprintf(step, "Off    520.co.nz");
 					Serial.println("Off");
 					Buzzer.off();
 					break;
 				case 1:
-					sprintf(step, "Starter %d-%d%cC", ProofBoxClass::Proof1Min, ProofBoxClass::Proof1Max, 0xDF);	
+					sprintf(step, "Starter %d-%d%cC", ProofBoxClass::StarterMin, ProofBoxClass::StarterMax, 0xDF);	
 					Serial.println("Starter");	
 					Buzzer.starter();
 					break;
@@ -66,7 +67,7 @@ void loop() {
 					Buzzer.proof1();
 					break;
 				case 3:
-					sprintf(step, "Proof2 %d-%d%cC", ProofBoxClass::Proof1Min, ProofBoxClass::Proof1Max, 0xDF);
+					sprintf(step, "Proof2 %d-%d%cC", ProofBoxClass::Proof2Min, ProofBoxClass::Proof2Max, 0xDF);
 					Serial.println("Proof2");
 					Buzzer.proof2();	
 					break;

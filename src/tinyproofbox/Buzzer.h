@@ -22,9 +22,7 @@ class BuzzerClass {
 	const static uint16_t Off[];
 	const static uint16_t Exceeded[];
 	
-	void play(uint16_t seq[]) {
-		size_t l = *(&seq + 1) - seq; // kichiku
-	
+	void play(uint16_t seq[], size_t l) {
 		for(int i = 0; i < l; i++) {
 			tone(Pin, seq[i], Tick);
 			delay(Tick);
