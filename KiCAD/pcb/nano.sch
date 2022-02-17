@@ -66,7 +66,7 @@ Shield for Arduino Nano
 Text Label 4250 5300 1    25   ~ 0
 Vin
 $Comp
-L power:GND #PWR01
+L nano-rescue:GND-power #PWR01
 U 1 1 56D7422C
 P 2000 6950
 F 0 "#PWR01" H 2000 6700 50  0001 C CNN
@@ -109,7 +109,7 @@ Wire Wire Line
 Wire Wire Line
 	2700 6850 3350 6850
 $Comp
-L power:GND #PWR02
+L nano-rescue:GND-power #PWR02
 U 1 1 56D746ED
 P 4250 6950
 F 0 "#PWR02" H 4250 6700 50  0001 C CNN
@@ -170,7 +170,7 @@ CTRL
 Text GLabel 9050 1350 0    50   Output ~ 0
 CTRL
 $Comp
-L power:GND #PWR014
+L nano-rescue:GND-power #PWR014
 U 1 1 60D4DD03
 P 9650 1550
 F 0 "#PWR014" H 9650 1300 50  0001 C CNN
@@ -189,7 +189,7 @@ FAN_RELAY
 Wire Wire Line
 	1650 3350 1700 3350
 $Comp
-L power:GND #PWR04
+L nano-rescue:GND-power #PWR04
 U 1 1 60D83FE9
 P 2150 4000
 F 0 "#PWR04" H 2150 3750 50  0001 C CNN
@@ -218,7 +218,7 @@ Wire Wire Line
 Connection ~ 2500 2850
 NoConn ~ 3300 3650
 $Comp
-L power:+12V #PWR06
+L nano-rescue:+12V-power #PWR06
 U 1 1 60DD18B1
 P 2500 3750
 F 0 "#PWR06" H 2500 3600 50  0001 C CNN
@@ -249,7 +249,7 @@ HEATER_RELAY
 Wire Wire Line
 	1650 1350 1700 1350
 $Comp
-L power:GND #PWR03
+L nano-rescue:GND-power #PWR03
 U 1 1 60DF4016
 P 2150 2000
 F 0 "#PWR03" H 2150 1750 50  0001 C CNN
@@ -278,7 +278,7 @@ Wire Wire Line
 Connection ~ 2500 850 
 NoConn ~ 3300 1650
 $Comp
-L power:+12V #PWR05
+L nano-rescue:+12V-power #PWR05
 U 1 1 60DF403E
 P 2500 1750
 F 0 "#PWR05" H 2500 1600 50  0001 C CNN
@@ -323,7 +323,7 @@ Wire Wire Line
 Wire Wire Line
 	5500 1500 5500 1700
 $Comp
-L power:GND #PWR010
+L nano-rescue:GND-power #PWR010
 U 1 1 60F01326
 P 5500 1700
 F 0 "#PWR010" H 5500 1450 50  0001 C CNN
@@ -336,7 +336,7 @@ $EndComp
 Wire Wire Line
 	7400 1500 7400 1700
 $Comp
-L power:GND #PWR013
+L nano-rescue:GND-power #PWR013
 U 1 1 60F1070A
 P 7400 1700
 F 0 "#PWR013" H 7400 1450 50  0001 C CNN
@@ -353,18 +353,16 @@ BUZZER
 Text GLabel 2700 5950 0    50   Output ~ 0
 BUZZER
 $Comp
-L power:GND #PWR09
+L nano-rescue:GND-power #PWR09
 U 1 1 60F5E2BA
-P 5150 3450
-F 0 "#PWR09" H 5150 3200 50  0001 C CNN
-F 1 "GND" H 5155 3277 50  0000 C CNN
-F 2 "" H 5150 3450 50  0001 C CNN
-F 3 "" H 5150 3450 50  0001 C CNN
-	1    5150 3450
+P 5300 3550
+F 0 "#PWR09" H 5300 3300 50  0001 C CNN
+F 1 "GND" H 5305 3377 50  0000 C CNN
+F 2 "" H 5300 3550 50  0001 C CNN
+F 3 "" H 5300 3550 50  0001 C CNN
+	1    5300 3550
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	5150 3300 5150 3450
 Wire Wire Line
 	5100 3100 5450 3100
 Wire Notes Line
@@ -378,7 +376,7 @@ LCD_I2C_SCL
 Text GLabel 9400 3500 2    50   BiDi ~ 0
 ICD_I2C_SDA
 $Comp
-L power:GND #PWR016
+L nano-rescue:GND-power #PWR016
 U 1 1 6105F74F
 P 10100 3500
 F 0 "#PWR016" H 10100 3250 50  0001 C CNN
@@ -389,7 +387,7 @@ F 3 "" H 10100 3500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR015
+L nano-rescue:+5V-power #PWR015
 U 1 1 6106C1C4
 P 9700 3300
 F 0 "#PWR015" H 9700 3150 50  0001 C CNN
@@ -406,7 +404,7 @@ Wire Wire Line
 Wire Wire Line
 	10100 3400 10100 3500
 $Comp
-L power:+5V #PWR08
+L nano-rescue:+5V-power #PWR08
 U 1 1 6109067F
 P 4350 5400
 F 0 "#PWR08" H 4350 5250 50  0001 C CNN
@@ -438,7 +436,7 @@ NoConn ~ 4550 6750
 Text Label 2700 5950 0    25   ~ 0
 3(**)
 $Comp
-L power:+12V #PWR07
+L nano-rescue:+12V-power #PWR07
 U 1 1 610F078F
 P 7850 5150
 F 0 "#PWR07" H 7850 5000 50  0001 C CNN
@@ -458,7 +456,7 @@ Wire Wire Line
 	7850 5300 7850 5150
 NoConn ~ 7650 5400
 $Comp
-L power:GND #PWR018
+L nano-rescue:GND-power #PWR018
 U 1 1 6114560E
 P 7850 5700
 F 0 "#PWR018" H 7850 5450 50  0001 C CNN
@@ -473,7 +471,7 @@ Wire Wire Line
 Wire Wire Line
 	7850 5500 7850 5700
 $Comp
-L power:PWR_FLAG #FLG01
+L nano-rescue:PWR_FLAG-power #FLG01
 U 1 1 61149580
 P 7850 5300
 F 0 "#FLG01" H 7850 5375 50  0001 C CNN
@@ -485,7 +483,7 @@ F 3 "~" H 7850 5300 50  0001 C CNN
 $EndComp
 Connection ~ 7850 5300
 $Comp
-L power:PWR_FLAG #FLG02
+L nano-rescue:PWR_FLAG-power #FLG02
 U 1 1 6114A270
 P 7850 5500
 F 0 "#FLG02" H 7850 5575 50  0001 C CNN
@@ -497,7 +495,7 @@ F 3 "~" H 7850 5500 50  0001 C CNN
 $EndComp
 Connection ~ 7850 5500
 $Comp
-L power:+12V #PWR017
+L nano-rescue:+12V-power #PWR017
 U 1 1 6114E002
 P 4250 5150
 F 0 "#PWR017" H 4250 5000 50  0001 C CNN
@@ -510,7 +508,7 @@ $EndComp
 Wire Wire Line
 	4250 5150 4250 5450
 $Comp
-L Connector:Barrel_Jack_Switch J1
+L nano-rescue:Barrel_Jack_Switch-Connector J1
 U 1 1 61138024
 P 7350 5400
 F 0 "J1" H 7407 5717 50  0000 C CNN
@@ -521,7 +519,7 @@ F 3 "~" H 7400 5360 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x04_Male J4
+L nano-rescue:Conn_01x04_Male-Connector J4
 U 1 1 6105F3ED
 P 9200 3400
 F 0 "J4" H 9308 3681 50  0000 C CNN
@@ -532,18 +530,7 @@ F 3 "~" H 9200 3400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R5
-U 1 1 60F2BA81
-P 5300 3300
-F 0 "R5" V 5093 3300 50  0000 C CNN
-F 1 "R" V 5184 3300 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 5230 3300 50  0001 C CNN
-F 3 "~" H 5300 3300 50  0001 C CNN
-	1    5300 3300
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:Buzzer BZ1
+L nano-rescue:Buzzer-Device BZ1
 U 1 1 60F26940
 P 5550 3200
 F 0 "BZ1" H 5702 3229 50  0000 L CNN
@@ -554,7 +541,7 @@ F 3 "~" V 5525 3300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Male J3
+L nano-rescue:Conn_01x02_Male-Connector J3
 U 1 1 60EB4879
 P 6850 1400
 F 0 "J3" H 6958 1581 50  0000 C CNN
@@ -565,7 +552,7 @@ F 3 "~" H 6850 1400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Male J2
+L nano-rescue:Conn_01x02_Male-Connector J2
 U 1 1 60EABA5B
 P 4950 1400
 F 0 "J2" H 5058 1581 50  0000 C CNN
@@ -576,7 +563,7 @@ F 3 "~" H 4950 1400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Relay:SANYOU_SRD_Form_C K1
+L nano-rescue:SANYOU_SRD_Form_C-Relay K1
 U 1 1 60DF402A
 P 3000 1550
 F 0 "K1" V 2433 1550 50  0000 C CNN
@@ -587,51 +574,51 @@ F 3 "http://www.sanyourelay.ca/public/products/pdf/SRD.pdf" H 3000 1550 50  0001
 	0    1    1    0   
 $EndComp
 $Comp
-L Diode:1N4148 D1
+L nano-rescue:1N4148-Diode D1
 U 1 1 60DF4020
 P 3000 850
 F 0 "D1" H 3000 633 50  0000 C CNN
 F 1 "1N4148" H 3000 724 50  0000 C CNN
-F 2 "Diode_SMD:D_SOD-123" H 3000 675 50  0001 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3000 675 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3000 850 50  0001 C CNN
 	1    3000 850 
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:R R3
+L nano-rescue:R-Device R3
 U 1 1 60DF400B
 P 1850 1750
 F 0 "R3" V 1643 1750 50  0000 C CNN
 F 1 "R" V 1734 1750 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 1780 1750 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 1780 1750 50  0001 C CNN
 F 3 "~" H 1850 1750 50  0001 C CNN
 	1    1850 1750
 	0    1    1    0   
 $EndComp
 $Comp
-L Transistor_BJT:S8050 Q1
+L nano-rescue:S8050-Transistor_BJT Q1
 U 1 1 60DF4001
 P 2050 1350
 F 0 "Q1" H 2240 1396 50  0000 L CNN
 F 1 "S8050" H 2240 1305 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 2250 1275 50  0001 L CIN
+F 2 "Package_TO_SOT_THT:TO-92_HandSolder" H 2250 1275 50  0001 L CIN
 F 3 "http://www.unisonic.com.tw/datasheet/S8050.pdf" H 2050 1350 50  0001 L CNN
 	1    2050 1350
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R1
+L nano-rescue:R-Device R1
 U 1 1 60DF3FF7
 P 1500 1350
 F 0 "R1" V 1293 1350 50  0000 C CNN
 F 1 "R" V 1384 1350 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 1430 1350 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 1430 1350 50  0001 C CNN
 F 3 "~" H 1500 1350 50  0001 C CNN
 	1    1500 1350
 	0    1    1    0   
 $EndComp
 $Comp
-L Relay:SANYOU_SRD_Form_C K2
+L nano-rescue:SANYOU_SRD_Form_C-Relay K2
 U 1 1 60D898C7
 P 3000 3550
 F 0 "K2" V 2433 3550 50  0000 C CNN
@@ -642,51 +629,51 @@ F 3 "http://www.sanyourelay.ca/public/products/pdf/SRD.pdf" H 3000 3550 50  0001
 	0    1    1    0   
 $EndComp
 $Comp
-L Diode:1N4148 D2
+L nano-rescue:1N4148-Diode D2
 U 1 1 60D8639C
 P 3000 2850
 F 0 "D2" H 3000 2633 50  0000 C CNN
 F 1 "1N4148" H 3000 2724 50  0000 C CNN
-F 2 "Diode_SMD:D_SOD-123" H 3000 2675 50  0001 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3000 2675 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3000 2850 50  0001 C CNN
 	1    3000 2850
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:R R4
+L nano-rescue:R-Device R4
 U 1 1 60D7A43B
 P 1850 3750
 F 0 "R4" V 1643 3750 50  0000 C CNN
 F 1 "R" V 1734 3750 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 1780 3750 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 1780 3750 50  0001 C CNN
 F 3 "~" H 1850 3750 50  0001 C CNN
 	1    1850 3750
 	0    1    1    0   
 $EndComp
 $Comp
-L Transistor_BJT:S8050 Q2
+L nano-rescue:S8050-Transistor_BJT Q2
 U 1 1 60D797B9
 P 2050 3350
 F 0 "Q2" H 2240 3396 50  0000 L CNN
 F 1 "S8050" H 2240 3305 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 2250 3275 50  0001 L CIN
+F 2 "Package_TO_SOT_THT:TO-92_HandSolder" H 2250 3275 50  0001 L CIN
 F 3 "http://www.unisonic.com.tw/datasheet/S8050.pdf" H 2050 3350 50  0001 L CNN
 	1    2050 3350
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R2
+L nano-rescue:R-Device R2
 U 1 1 60D761B0
 P 1500 3350
 F 0 "R2" V 1293 3350 50  0000 C CNN
 F 1 "R" V 1384 3350 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric" V 1430 3350 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 1430 3350 50  0001 C CNN
 F 3 "~" H 1500 3350 50  0001 C CNN
 	1    1500 3350
 	0    1    1    0   
 $EndComp
 $Comp
-L Switch:SW_Push SW1
+L nano-rescue:SW_Push-Switch SW1
 U 1 1 60D49471
 P 9250 1350
 F 0 "SW1" H 9250 1635 50  0000 C CNN
@@ -697,7 +684,7 @@ F 3 "~" H 9250 1550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x15 P2
+L nano-rescue:Conn_01x15-Connector_Generic P2
 U 1 1 56D740C7
 P 3950 6150
 F 0 "P2" H 3950 6950 50  0000 C CNN
@@ -708,7 +695,7 @@ F 3 "" H 3950 6150 50  0000 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x15 P1
+L nano-rescue:Conn_01x15-Connector_Generic P1
 U 1 1 56D73FAC
 P 3550 6150
 F 0 "P1" H 3550 6950 50  0000 C CNN
@@ -719,7 +706,7 @@ F 3 "" H 3550 6150 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole H2
+L nano-rescue:MountingHole-Mechanical H2
 U 1 1 6119AEA8
 P 10500 5000
 F 0 "H2" H 10600 5046 50  0000 L CNN
@@ -730,7 +717,7 @@ F 3 "~" H 10500 5000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole H3
+L nano-rescue:MountingHole-Mechanical H3
 U 1 1 6119DA85
 P 10500 5400
 F 0 "H3" H 10600 5446 50  0000 L CNN
@@ -741,7 +728,7 @@ F 3 "~" H 10500 5400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole H1
+L nano-rescue:MountingHole-Mechanical H1
 U 1 1 6119DE1B
 P 10500 4600
 F 0 "H1" H 10600 4646 50  0000 L CNN
@@ -752,7 +739,7 @@ F 3 "~" H 10500 4600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole H4
+L nano-rescue:MountingHole-Mechanical H4
 U 1 1 611B2D54
 P 10500 5850
 F 0 "H4" H 10600 5896 50  0000 L CNN
@@ -763,7 +750,7 @@ F 3 "~" H 10500 5850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR012
+L nano-rescue:GND-power #PWR012
 U 1 1 6123507A
 P 7400 3550
 F 0 "#PWR012" H 7400 3300 50  0001 C CNN
@@ -774,7 +761,7 @@ F 3 "" H 7400 3550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR011
+L nano-rescue:+5V-power #PWR011
 U 1 1 61235084
 P 7400 3250
 F 0 "#PWR011" H 7400 3100 50  0001 C CNN
@@ -791,7 +778,7 @@ Wire Wire Line
 Wire Wire Line
 	7400 3450 7400 3550
 $Comp
-L Connector:Conn_01x03_Male J5
+L nano-rescue:Conn_01x03_Male-Connector J5
 U 1 1 6126BCF9
 P 6900 3350
 F 0 "J5" H 7008 3631 50  0000 C CNN
@@ -803,4 +790,22 @@ F 3 "~" H 6900 3350 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7100 3350 7400 3350
+$Comp
+L Device:R_POT RV1
+U 1 1 614484C5
+P 5300 3300
+F 0 "RV1" V 5093 3300 50  0000 C CNN
+F 1 "10K" V 5184 3300 50  0000 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Runtron_RM-065_Vertical" H 5300 3300 50  0001 C CNN
+F 3 "~" H 5300 3300 50  0001 C CNN
+	1    5300 3300
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5300 3450 5300 3550
+Wire Wire Line
+	5300 3450 5150 3450
+Wire Wire Line
+	5150 3450 5150 3300
+Connection ~ 5300 3450
 $EndSCHEMATC

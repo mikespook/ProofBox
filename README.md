@@ -1,12 +1,13 @@
 # TinyProofBox
 
-An Arduino Nano based, TinyGo implemented, sourdough proof box with LCD display
+An Arduino Nano based, (TODO: TinyGo implemented) sourdough proof box with LCD display
 
 # Tools
 
 [FreeCAD][freecad]
 [KiCAD][kicad]
-[TinyGo][tinygo]
+[Arduino IDE][ide]
+TODO: [TinyGo][tinygo]
 
 # Parts
 
@@ -25,3 +26,4 @@ Prototype board (length: 70mm, width: 50mm)
 [dht11]: https://create.arduino.cc/projecthub/search?q=DHT11
 [lcd1602]: https://create.arduino.cc/projecthub/search?q=lcd1602+i2c
 [nano]: https://www.arduino.cc/en/pmwiki.php?n=Main/ArduinoBoardNano
+[ide]: https://www.arduino.cc/en/software
