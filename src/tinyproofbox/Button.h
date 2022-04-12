@@ -14,8 +14,10 @@ class ButtonClass {
 		void onChange();
 		bool pressed();
 		uint8_t countdown();
+		void ended();
 	private:
 		uint8_t count = Count;
+		bool end = false;
 };
 
 static ButtonClass Button;

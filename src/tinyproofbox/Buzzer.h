@@ -4,7 +4,7 @@
 #include <Arduino.h>
 
 class BuzzerClass {
-	const static uint8_t Pin = 10;
+	const static uint8_t Pin = 3;
 	const static uint16_t Tick = 200;
 
 	const static uint16_t NoteC = 262;

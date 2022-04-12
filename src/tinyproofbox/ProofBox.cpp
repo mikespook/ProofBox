@@ -4,17 +4,17 @@ void ProofBoxClass::begin() {
 	dht = new DHT(PinDHT, DHT11);
 	dht->begin();
 	program = EEPROM.read(0);
+	dht->readTemperature();
+	dht->readHumidity();
 }
 
 bool ProofBoxClass::loop(float *t, float *h) {
 	int now = millis();
-	if (ReadGap > (now - lastRead)) {
-		return true;
-	}
-	lastRead = now;
 	*t = dht->readTemperature();
 	*h = dht->readHumidity();
 	if (isnan(*h) || isnan(*t)) {
+		Heater.off();
+		Fan.off();
     	return false;
 	}	
 	if (nextHeatOff < now) {

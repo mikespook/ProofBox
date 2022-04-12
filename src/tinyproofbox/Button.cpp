@@ -7,8 +7,13 @@ void ButtonClass::begin() {
 
 bool ButtonClass::pressed() {
 	bool pressed = LOW == digitalRead(Pin);
+	end = end && pressed;
 	count = pressed ? count : Count;
-	return pressed;
+	return pressed && !end;
+}
+
+void ButtonClass::ended() {
+	end = true;
 }
 
 uint8_t ButtonClass::countdown() {
