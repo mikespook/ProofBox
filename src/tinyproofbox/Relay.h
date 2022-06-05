@@ -11,9 +11,11 @@ class RelayClass {
 		RelayClass(int pin);
 		void off();		
 		void on();
+		bool isOn();
 		
 	private:
 		int _pin;
+		int _state;
 };
 
 static RelayClass Heater(RelayClass::PinHeater);

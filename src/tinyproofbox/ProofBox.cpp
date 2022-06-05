@@ -1,6 +1,7 @@
 #include "ProofBox.h"
 
 void ProofBoxClass::begin() {
+	int now = millis();
 	dht = new DHT(PinDHT, DHT11);
 	dht->begin();
 	program = EEPROM.read(0);
@@ -9,25 +10,29 @@ void ProofBoxClass::begin() {
 }
 
 bool ProofBoxClass::loop(float *t, float *h) {
-	int now = millis();
+	uint32_t now = millis();
+
+	if (Heater.isOn()) {
+		nextFanOff = now + FanTick;
+	}
+
 	*t = dht->readTemperature();
 	*h = dht->readHumidity();
 	if (isnan(*h) || isnan(*t)) {
+		// failure from sensor
+		if (Heater.isOn()) {
+			Serial.println("Heater off: faulty sensor");
+		}
 		Heater.off();
-		Fan.off();
-    	return false;
-	}	
-	if (nextHeatOff < now) {
-		Heater.off();
+		return false;
 	}
-	if (nextFanOff < now) {
-		Fan.off();
-	}
+
 	float min, max;
 	switch(program) {
 		case StateStarter:
 			min = StarterMin;
 			max = StarterMax;
+
 			break;
 		case StateProof1:
 			min = Proof1Min;
@@ -38,27 +43,46 @@ bool ProofBoxClass::loop(float *t, float *h) {
 			max = Proof2Max;
 			break;
 		default:
-			off();
+			Heater.off();
 			return true;
 	}
-	if (*t < min) {
+	// fan is controlled separatly
+	if (nextFanOff > now) {
 		Fan.on();
-		Heater.on();
-		nextHeatOff = now + HeatTick;
-		nextFanOff = nextHeatOff + FanTick;
-		return true;
+	} else {
+		if (Fan.isOn()) {
+			Serial.println("Fan off");
+		}
+		Fan.off();
 	}
-	Heater.off();
-	if (*t > max) {
+	if ((*t) < min) {
+		if (Heater.isOn()) {
+			if (nextHeatOff <= now) {
+				Heater.off();
+				nextHeatOn = now + HeatOffTick;
+				Serial.println("Heater off: heating loop");
+			}		
+		} else if (nextHeatOn <= now) {
+			Heater.on();
+			Fan.on();
+			nextHeatOff = now + HeatOnTick;
+			Serial.println("Heater on: heating loop");
+			Serial.println("Fan on: heating loop");
+		}
+	} else {
+		if (Heater.isOn()) {
+			Heater.off();
+			Serial.println("Heater off: target hit");
+		}
+	}
+	if (*t >= max) {
+		if (Heater.isOn()) {
+			Heater.off();
+			Serial.println("Heater off: over heating");
+		}
 		nextFanOff += FanTick;
 	}
 	return true;
-}
-
-void ProofBoxClass::off() {
-	nextHeatOff = millis() - HeatTick;
-	Heater.off();
-	nextFanOff += FanTick; 
 }
 
 uint8_t ProofBoxClass::next() {

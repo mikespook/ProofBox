@@ -32,15 +32,19 @@ class ProofBoxClass {
 	private:
 		const static uint8_t PinDHT = 4;
 
-		const static uint16_t HeatTick = 1000;
-		const static uint16_t FanTick = 3000;
+		const static uint16_t HeatOnTick = 1000;
+		const static uint16_t HeatOffTick = 3000;
+		const static uint16_t FanTick = 5000;
 
 		const static uint16_t ReadGap = 2000;
 
 		uint64_t lastRead;
 
-		int nextHeatOff = 0;
-		int nextFanOff = 0;
+		//
+		uint32_t nextHeatOn = 0;
+		uint32_t nextHeatOff = millis();
+		//
+		uint32_t nextFanOff = 0;
 
 		uint8_t program = StateOff;
 
