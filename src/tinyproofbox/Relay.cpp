@@ -3,8 +3,8 @@
 RelayClass::RelayClass(int pin) {
 	_pin = pin;
 	pinMode(_pin, OUTPUT);
-	digitalWrite(_pin, HIGH);
-	_state = HIGH;
+	digitalWrite(_pin, LOW);
+	_state = LOW;
 }
 
 void RelayClass::on() {

@@ -66,8 +66,7 @@ bool ProofBoxClass::loop(float *t, float *h) {
 			Heater.on();
 			Fan.on();
 			nextHeatOff = now + HeatOnTick;
-			Serial.println("Heater on: heating loop");
-			Serial.println("Fan on: heating loop");
+			Serial.println("Heater & fan on: heating loop");
 		}
 	} else {
 		if (Heater.isOn()) {
