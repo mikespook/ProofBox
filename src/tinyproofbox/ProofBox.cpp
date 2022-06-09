@@ -12,6 +12,13 @@ void ProofBoxClass::begin() {
 bool ProofBoxClass::loop(float *t, float *h) {
 	uint32_t now = millis();
 
+	if (lastNow > now) {
+		nextHeatOn = 0;
+		nextHeatOff = 0;
+	}
+
+	lastNow = now;
+
 	if (Heater.isOn()) {
 		nextFanOff = now + FanTick;
 	}
@@ -21,10 +28,17 @@ bool ProofBoxClass::loop(float *t, float *h) {
 	if (isnan(*h) || isnan(*t)) {
 		// failure from sensor
 		if (Heater.isOn()) {
-			Serial.println("Heater off: faulty sensor");
+			this->debug("Heater off: faulty sensor");
 		}
 		Heater.off();
 		return false;
+	}
+
+	if ((*t) > DeathMax) {
+		this->debug("Heater off: death temperature");
+		Heater.off();
+		nextFanOff = now + FanTick * 10;
+		return true;
 	}
 
 	float min, max;
@@ -51,7 +65,7 @@ bool ProofBoxClass::loop(float *t, float *h) {
 		Fan.on();
 	} else {
 		if (Fan.isOn()) {
-			Serial.println("Fan off");
+			this->debug("Fan off");
 		}
 		Fan.off();
 	}
@@ -60,26 +74,26 @@ bool ProofBoxClass::loop(float *t, float *h) {
 			if (nextHeatOff <= now) {
 				Heater.off();
 				nextHeatOn = now + HeatOffTick;
-				Serial.println("Heater off: heating loop");
-			}		
+				this->debug("Heater off: heating loop");
+			}
 		} else if (nextHeatOn <= now) {
 			Heater.on();
 			Fan.on();
 			nextHeatOff = now + HeatOnTick;
-			Serial.println("Heater & fan on: heating loop");
+			this->debug("Heater & fan on: heating loop");
 		}
 	} else {
 		if (Heater.isOn()) {
 			Heater.off();
-			Serial.println("Heater off: target hit");
+			this->debug("Heater off: target hit");
 		}
 	}
-	if (*t >= max) {
+	if ((*t) >= max) {
 		if (Heater.isOn()) {
 			Heater.off();
-			Serial.println("Heater off: over heating");
+			this->debug("Heater off: over heating");
 		}
-		nextFanOff += FanTick;
+		nextFanOff = now + FanTick;
 	}
 	return true;
 }
@@ -89,4 +103,21 @@ uint8_t ProofBoxClass::next() {
 	if (program > StateProof2) program = StateOff;
 	EEPROM.write(0, program);
 	return program;
+}
+
+void ProofBoxClass::debug(const char* msg) {
+	char buf[11];
+	sprintf(buf, "%010lu", lastNow);
+	Serial.print(buf);
+	Serial.print("\t\tHeader: [");
+	sprintf(buf, "%010lu", nextHeatOn);
+	Serial.print(buf);
+	Serial.print("-");	
+	sprintf(buf, "%010lu", nextHeatOff);
+	Serial.print(buf);
+	Serial.print("]\t\tFan: ");
+	sprintf(buf, "%010lu", nextFanOff);	
+	Serial.print(buf);
+	Serial.print("\t\t");
+	Serial.println(msg);
 }

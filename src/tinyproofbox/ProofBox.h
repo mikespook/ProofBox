@@ -12,14 +12,16 @@ class ProofBoxClass {
 		const static uint8_t StateProof1 = 2;
 		const static uint8_t StateProof2 = 3;
 
-		const static int StarterMin = 21;
-		const static int StarterMax = 23;
+		const static uint8_t StarterMin = 21;
+		const static uint8_t StarterMax = 23;
 
-		const static int Proof1Min = 26;
-		const static int Proof1Max = 28;
+		const static uint8_t Proof1Min = 26;
+		const static uint8_t Proof1Max = 28;
 
-		const static int Proof2Min = 36;
-		const static int Proof2Max = 38;
+		const static uint8_t Proof2Min = 36;
+		const static uint8_t Proof2Max = 38;
+
+		const static uint8_t DeathMax = 45;
 
 		ProofBoxClass() {};
 
@@ -34,7 +36,7 @@ class ProofBoxClass {
 
 		const static uint16_t HeatOnTick = 1000;
 		const static uint16_t HeatOffTick = 3000;
-		const static uint16_t FanTick = 5000;
+		const static uint16_t FanTick = 10000;
 
 		const static uint16_t ReadGap = 2000;
 
@@ -45,12 +47,14 @@ class ProofBoxClass {
 		uint32_t nextHeatOff = millis();
 		//
 		uint32_t nextFanOff = 0;
+		//
+		uint32_t lastNow = 0;
 
 		uint8_t program = StateOff;
 
 		DHT *dht;
 
-		void off();
+		void debug(const char*);
 };
 
 static ProofBoxClass ProofBox;
