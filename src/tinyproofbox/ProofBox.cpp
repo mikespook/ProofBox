@@ -59,7 +59,7 @@ bool ProofBoxClass::loop(float *t, float *h) {
 	// fan is controlled separatly
 	if (nextFanOff > now) {
 		Fan.on();
-	} else {
+	} else if (Fan.isOn()){
 		this->debug("Fan off", *t, *h);
 		Fan.off();
 	}
