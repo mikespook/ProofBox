@@ -26,9 +26,7 @@ bool ProofBoxClass::loop(float *t, float *h) {
 	*h = dht->readHumidity();
 	if (isnan(*h) || isnan(*t)) {
 		// failure from sensor
-		if (Heater.isOn()) {
-			this->debug("Faulty sensor", *t, *h);
-		}
+		this->debug("Faulty sensor", *t, *h);
 		Heater.off();
 		return false;
 	}
@@ -62,9 +60,7 @@ bool ProofBoxClass::loop(float *t, float *h) {
 	if (nextFanOff > now) {
 		Fan.on();
 	} else {
-		if (Fan.isOn()) {
-			this->debug("Fan off", *t, *h);
-		}
+		this->debug("Fan off", *t, *h);
 		Fan.off();
 	}
 	if ((*t) < min) {
@@ -75,16 +71,12 @@ bool ProofBoxClass::loop(float *t, float *h) {
 		delay(HeatOffTick);
 		this->debug("Heater off", *t, *h);
 	} else {
-		if (Heater.isOn()) {
-			Heater.off();
-		}
+		Heater.off();
 		this->debug("Target reached", *t, *h);
 	}
 	if ((*t) >= max) {
-		if (Heater.isOn()) {
-			Heater.off();
-			this->debug("Over heating", *t, *h);
-		}
+		Heater.off();
+		this->debug("Over heating", *t, *h);
 		nextFanOff = now + FanTick;
 	}
 	return true;
