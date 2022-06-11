@@ -14,13 +14,12 @@ bool ProofBoxClass::loop(float *t, float *h) {
 
 	if (lastNow > now) {
 		nextHeatOn = 0;
-		nextHeatOff = 0;
 	}
-
 	lastNow = now;
 
 	if (Heater.isOn()) {
 		nextFanOff = now + FanTick;
+		Heater.off();
 	}
 
 	*t = dht->readTemperature();
@@ -28,14 +27,14 @@ bool ProofBoxClass::loop(float *t, float *h) {
 	if (isnan(*h) || isnan(*t)) {
 		// failure from sensor
 		if (Heater.isOn()) {
-			this->debug("Heater off: faulty sensor");
+			this->debug("Faulty sensor", *t, *h);
 		}
 		Heater.off();
 		return false;
 	}
 
 	if ((*t) > DeathMax) {
-		this->debug("Heater off: death temperature");
+		this->debug("Death temperature", *t, *h);
 		Heater.off();
 		nextFanOff = now + FanTick * 10;
 		return true;
@@ -46,7 +45,6 @@ bool ProofBoxClass::loop(float *t, float *h) {
 		case StateStarter:
 			min = StarterMin;
 			max = StarterMax;
-
 			break;
 		case StateProof1:
 			min = Proof1Min;
@@ -65,33 +63,27 @@ bool ProofBoxClass::loop(float *t, float *h) {
 		Fan.on();
 	} else {
 		if (Fan.isOn()) {
-			this->debug("Fan off");
+			this->debug("Fan off", *t, *h);
 		}
 		Fan.off();
 	}
 	if ((*t) < min) {
-		if (Heater.isOn()) {
-			if (nextHeatOff <= now) {
-				Heater.off();
-				nextHeatOn = now + HeatOffTick;
-				this->debug("Heater off: heating loop");
-			}
-		} else if (nextHeatOn <= now) {
-			Heater.on();
-			Fan.on();
-			nextHeatOff = now + HeatOnTick;
-			this->debug("Heater & fan on: heating loop");
-		}
+		this->debug("Heater on", *t, *h);	
+		Heater.on();
+		delay(HeatOnTick);
+		Heater.off();
+		delay(HeatOffTick);
+		this->debug("Heater off", *t, *h);
 	} else {
 		if (Heater.isOn()) {
 			Heater.off();
-			this->debug("Heater off: target hit");
 		}
+		this->debug("Target reached", *t, *h);
 	}
 	if ((*t) >= max) {
 		if (Heater.isOn()) {
 			Heater.off();
-			this->debug("Heater off: over heating");
+			this->debug("Over heating", *t, *h);
 		}
 		nextFanOff = now + FanTick;
 	}
@@ -105,19 +97,20 @@ uint8_t ProofBoxClass::next() {
 	return program;
 }
 
-void ProofBoxClass::debug(const char* msg) {
+void ProofBoxClass::debug(const char* msg, float t, float h) {
 	char buf[11];
 	sprintf(buf, "%010lu", lastNow);
 	Serial.print(buf);
-	Serial.print("\t\tHeader: [");
+	Serial.print("\tHeader on at: ");
 	sprintf(buf, "%010lu", nextHeatOn);
 	Serial.print(buf);
-	Serial.print("-");	
-	sprintf(buf, "%010lu", nextHeatOff);
-	Serial.print(buf);
-	Serial.print("]\t\tFan: ");
+	Serial.print("\tFan will be off at: ");
 	sprintf(buf, "%010lu", nextFanOff);	
 	Serial.print(buf);
-	Serial.print("\t\t");
+	Serial.print("\tT: ");
+	Serial.print(t);
+	Serial.print("°C\tH: ");
+	Serial.print(h);
+	Serial.print("%\t");
 	Serial.println(msg);
 }

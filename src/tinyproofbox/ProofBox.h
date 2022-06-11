@@ -44,7 +44,6 @@ class ProofBoxClass {
 
 		//
 		uint32_t nextHeatOn = 0;
-		uint32_t nextHeatOff = millis();
 		//
 		uint32_t nextFanOff = 0;
 		//
@@ -54,7 +53,7 @@ class ProofBoxClass {
 
 		DHT *dht;
 
-		void debug(const char*);
+		void debug(const char*, float t, float h);
 };
 
 static ProofBoxClass ProofBox;

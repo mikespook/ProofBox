@@ -1,3 +1,5 @@
+#include <avr/wdt.h>
+
 #include "ProofBox.h"
 #include "Button.h"
 #include "Buzzer.h"
@@ -22,6 +24,8 @@ void setup() {
 	delay(100);
 	ProofBox.begin();
 	state(ProofBox.current());
+	delay(2000);
+	wdt_enable(WDTO_8S);
 }
 
 void state(int n) {
@@ -75,4 +79,5 @@ void loop() {
 	} else {
 		LCD.error();
 	}
+	wdt_reset();
 }
