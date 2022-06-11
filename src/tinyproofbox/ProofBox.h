@@ -53,6 +53,10 @@ class ProofBoxClass {
 
 		DHT *dht;
 
+		float lastT;
+		float lastH;
+		char * lastMsg;
+
 		void debug(const char*, float t, float h);
 };
 

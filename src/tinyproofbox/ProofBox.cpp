@@ -98,13 +98,21 @@ uint8_t ProofBoxClass::next() {
 }
 
 void ProofBoxClass::debug(const char* msg, float t, float h) {
+	if (strcmp(msg, lastMsg) == 0 && (t - lastT) < 0.001 &&
+			(h - lastH) < 0.001) {
+		return;
+	}
+	lastT = t;
+	lastH = h;
+	lastMsg = msg;
+
 	char buf[11];
 	sprintf(buf, "%010lu", lastNow);
 	Serial.print(buf);
 	Serial.print("\tHeader on at: ");
 	sprintf(buf, "%010lu", nextHeatOn);
 	Serial.print(buf);
-	Serial.print("\tFan will be off at: ");
+	Serial.print("\tFan off at: ");
 	sprintf(buf, "%010lu", nextFanOff);	
 	Serial.print(buf);
 	Serial.print("\tT: ");
