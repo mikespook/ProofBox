@@ -14,6 +14,7 @@ bool ProofBoxClass::loop(float *t, float *h) {
 
 	if (lastNow > now) {
 		nextHeatOn = 0;
+		nextHeatOff = 0;
 	}
 	lastNow = now;
 
@@ -63,21 +64,30 @@ bool ProofBoxClass::loop(float *t, float *h) {
 		this->debug("Fan off", *t, *h);
 		Fan.off();
 	}
-	if ((*t) < min) {
-		this->debug("Heater on", *t, *h);	
-		Heater.on();
-		delay(HeatOnTick);
-		Heater.off();
-		delay(HeatOffTick);
-		this->debug("Heater off", *t, *h);
-	} else {
-		Heater.off();
-		this->debug("Target reached", *t, *h);
-	}
-	if ((*t) >= max) {
+	if ((*t) >= max) { // too high
 		Heater.off();
 		this->debug("Over heating", *t, *h);
 		nextFanOff = now + FanTick;
+		return true;
+	}
+	if (min < (*t) && (*t) < max) {
+		Heater.off();
+		this->debug("Target reached", *t, *h);
+		return true;
+	}
+	if ((*t) < min && nextHeatOff <= now && Heater.isOn()) {
+		// if low temp and heater off
+		Heater.off();
+		this->debug("Heater off", *t, *h);
+		nextHeatOn = now + HeatOffTick;
+		return true;
+	}
+	if ((*t) < min && nextHeatOn <= now && !Heater.isOn()) {
+		Heater.on();
+		Fan.on();			
+		nextHeatOff = now + HeatOnTick;
+		this->debug("Heater & fan on", *t, *h);
+		return true;
 	}
 	return true;
 }

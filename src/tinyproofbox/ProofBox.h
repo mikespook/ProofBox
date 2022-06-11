@@ -36,7 +36,7 @@ class ProofBoxClass {
 
 		const static uint16_t HeatOnTick = 1000;
 		const static uint16_t HeatOffTick = 3000;
-		const static uint16_t FanTick = 10000;
+		const static uint16_t FanTick = 30000;
 
 		const static uint16_t ReadGap = 2000;
 
@@ -44,6 +44,7 @@ class ProofBoxClass {
 
 		//
 		uint32_t nextHeatOn = 0;
+		uint32_t nextHeatOff = HeatOnTick;
 		//
 		uint32_t nextFanOff = 0;
 		//
