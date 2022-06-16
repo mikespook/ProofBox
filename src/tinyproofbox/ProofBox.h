@@ -35,10 +35,8 @@ class ProofBoxClass {
 		const static uint8_t PinDHT = 4;
 
 		const static uint16_t HeatOnTick = 1000;
-		const static uint16_t HeatOffTick = 3000;
+		const static uint16_t HeatOffTick = 4000;
 		const static uint16_t FanTick = 30000;
-
-		const static uint16_t ReadGap = 2000;
 
 		uint64_t lastRead;
 
