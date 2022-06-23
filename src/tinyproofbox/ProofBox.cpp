@@ -27,6 +27,7 @@ bool ProofBoxClass::loop(float *t, float *h) {
 	} else if (Fan.isOn()){
 		this->debug("Fan off", *t, *h);
 		Fan.off();
+		Heater.off();
 	}
 
 	*t = dht->readTemperature();
