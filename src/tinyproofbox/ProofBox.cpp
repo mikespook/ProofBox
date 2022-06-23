@@ -101,13 +101,13 @@ bool ProofBoxClass::loop(float *t, float *h) {
 uint32_t ProofBoxClass::onTick(float current, float target) {
 	float t = target - current;
 	t = t < 0 ? 0 : t;
-	return round(pow(5, -t / 10) * HeatOnTickAdjust);
+	return round(pow(HeatOnTickBase, -t / 10) * HeatOnTickAdjust);
 }
 
 uint32_t ProofBoxClass::offTick(float current, float target) {
 	float t = target - current;
 	t = t < 0 ? 0 : t; 
-	return round(pow(5, t / 10) * HeatOffTickAdjust);
+	return round(pow(HeatOffTickBase, t / 10) * HeatOffTickAdjust);
 }
 
 uint8_t ProofBoxClass::next() {

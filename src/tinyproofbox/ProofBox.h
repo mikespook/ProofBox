@@ -34,7 +34,9 @@ class ProofBoxClass {
 	private:
 		const static uint8_t PinDHT = 4;
 
-		const static uint16_t HeatOnTickAdjust = 1000;
+		const static float HeatOnTickBase = 1.5;	
+		const static uint16_t HeatOnTickAdjust = 2000;
+		const static float HeatOffTickBase = 5;		
 		const static uint16_t HeatOffTickAdjust = 5000;
 		const static uint16_t FanTick = 60000;
 
