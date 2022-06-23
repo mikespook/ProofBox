@@ -25,7 +25,7 @@ void setup() {
 	ProofBox.begin();
 	state(ProofBox.current());
 	delay(2000);
-	wdt_enable(WDTO_8S);
+	wdt_enable(WDTO_500MS);
 }
 
 void state(int n) {

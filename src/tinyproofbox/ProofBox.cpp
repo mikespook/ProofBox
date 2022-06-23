@@ -21,6 +21,13 @@ bool ProofBoxClass::loop(float *t, float *h) {
 	if (Heater.isOn()) {
 		nextFanOff = now + FanTick;
 	}
+	// fan is controlled separatly
+	if (now < nextFanOff) {
+		Fan.on();
+	} else if (Fan.isOn()){
+		this->debug("Fan off", *t, *h);
+		Fan.off();
+	}
 
 	*t = dht->readTemperature();
 	*h = dht->readHumidity();
@@ -56,13 +63,7 @@ bool ProofBoxClass::loop(float *t, float *h) {
 			Heater.off();
 			return true;
 	}
-	// fan is controlled separatly
-	if (now < nextFanOff) {
-		Fan.on();
-	} else if (Fan.isOn()){
-		this->debug("Fan off", *t, *h);
-		Fan.off();
-	}
+
 	if (max <= (*t)) { // too high
 		Heater.off();
 		this->debug("Over heating", *t, *h);
@@ -74,22 +75,38 @@ bool ProofBoxClass::loop(float *t, float *h) {
 		this->debug("Target reached", *t, *h);
 		return true;
 	}
+
+	// off period
 	if ((*t) < min && nextHeatOff <= now && Heater.isOn()) {
 		Heater.off();
 		this->debug("Heater off", *t, *h);
-		nextHeatOn = now + HeatOffTick;
-		nextHeatOff = nextHeatOn + HeatOnTick;
+		nextHeatOn = now + offTick(*t, min);
+		nextHeatOff = nextHeatOn + onTick(*t, min);
 		return true;
 	}
+
+	// on period
 	if ((*t) < min && nextHeatOn <= now && !Heater.isOn()) {
 		Heater.on();
 		Fan.on();			
-		nextHeatOff = now + HeatOnTick;
-		nextHeatOn = nextHeatOff + HeatOffTick;
+		nextHeatOff = now + onTick(*t, min);
+		nextHeatOn = nextHeatOff + offTick(*t, min);
 		this->debug("Heater & fan on", *t, *h);
 		return true;
 	}
 	return true;
+}
+
+uint32_t ProofBoxClass::onTick(float current, float target) {
+	float t = target - current;
+	t = t < 0 ? 0 : t;
+	return round(pow(5, -t / 10) * HeatOnTickAdjust);
+}
+
+uint32_t ProofBoxClass::offTick(float current, float target) {
+	float t = target - current;
+	t = t < 0 ? 0 : t; 
+	return round(pow(5, t / 10) * HeatOffTickAdjust);
 }
 
 uint8_t ProofBoxClass::next() {

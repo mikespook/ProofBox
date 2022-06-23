@@ -34,15 +34,15 @@ class ProofBoxClass {
 	private:
 		const static uint8_t PinDHT = 4;
 
-		const static uint16_t HeatOnTick = 1000;
-		const static uint16_t HeatOffTick = 4000;
-		const static uint16_t FanTick = 30000;
+		const static uint16_t HeatOnTickAdjust = 1000;
+		const static uint16_t HeatOffTickAdjust = 5000;
+		const static uint16_t FanTick = 60000;
 
 		uint64_t lastRead;
 
 		//
 		uint32_t nextHeatOn = 0;
-		uint32_t nextHeatOff = HeatOnTick;
+		uint32_t nextHeatOff = 0;
 		//
 		uint32_t nextFanOff = 0;
 		//
@@ -55,6 +55,9 @@ class ProofBoxClass {
 		float lastT;
 		float lastH;
 		char * lastMsg;
+
+		uint32_t offTick(float current, float target);
+		uint32_t onTick(float current, float target);
 
 		void debug(const char*, float t, float h);
 };

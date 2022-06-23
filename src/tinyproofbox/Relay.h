@@ -5,8 +5,8 @@
 
 class RelayClass {
 	public:
-		const static uint8_t PinHeater = 7;
-		const static uint8_t PinFan = 8;
+		const static uint8_t PinHeater = 8;
+		const static uint8_t PinFan = 7;
 
 		RelayClass(int pin);
 		void off();		
