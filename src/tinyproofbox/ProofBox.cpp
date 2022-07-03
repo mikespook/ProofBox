@@ -36,6 +36,9 @@ bool ProofBoxClass::loop(float *t, float *h) {
 		// failure from sensor
 		this->debug("Faulty sensor", *t, *h);
 		Heater.off();
+		nextFanOff = now + FanTick * 10;
+		nextHeatOn = now + FanTick * 30;
+		nextHeatOff = now + FanTick *10;	
 		return false;
 	}
 
@@ -43,6 +46,8 @@ bool ProofBoxClass::loop(float *t, float *h) {
 		this->debug("Death temperature", *t, *h);
 		Heater.off();
 		nextFanOff = now + FanTick * 10;
+		nextHeatOn = now + FanTick * 30;
+		nextHeatOff = now + FanTick *10;
 		return true;
 	}
 
@@ -71,7 +76,7 @@ bool ProofBoxClass::loop(float *t, float *h) {
 		nextFanOff = now + FanTick;
 		return true;
 	}
-	if (min <= (*t) && (*t) < max) {
+	if ((min <= (*t)) && ((*t) < max)) {
 		Heater.off();
 		this->debug("Target reached", *t, *h);
 		return true;
@@ -101,13 +106,13 @@ bool ProofBoxClass::loop(float *t, float *h) {
 uint32_t ProofBoxClass::onTick(float current, float target) {
 	float t = target - current;
 	t = t < 0 ? 0 : t;
-	return round(pow(HeatOnTickBase, -t / 10) * HeatOnTickAdjust);
+	return round(pow(HeatOnTickBase, t / 10) * HeatOnTickAdjust);
 }
 
 uint32_t ProofBoxClass::offTick(float current, float target) {
 	float t = target - current;
 	t = t < 0 ? 0 : t; 
-	return round(pow(HeatOffTickBase, t / 10) * HeatOffTickAdjust);
+	return round(pow(HeatOffTickBase, -t / 10) * HeatOffTickAdjust);
 }
 
 uint8_t ProofBoxClass::next() {
@@ -118,15 +123,21 @@ uint8_t ProofBoxClass::next() {
 }
 
 void ProofBoxClass::debug(const char* msg, float t, float h) {
-	if (strcmp(msg, lastMsg) == 0 && (t - lastT) < 0.001 &&
-			(h - lastH) < 0.001) {
-		return;
-	}
-	lastT = t;
-	lastH = h;
-	lastMsg = msg;
+	debug(msg, t, h, true);
+}
 
-	char buf[11];
+void ProofBoxClass::debug(const char* msg, float t, float h, bool cached) {
+	if (cached) {
+		if ((strcmp(msg, lastMsg) == 0) && ((t - lastT) < 0.00001) &&
+				((h - lastH) < 0.00001)) {
+			return;
+		}
+		lastT = t;
+		lastH = h;
+		lastMsg = msg;
+	}
+
+	char buf[16];
 	sprintf(buf, "%010lu", lastNow);
 	Serial.print(buf);
 	Serial.print("\tHeader on at: ");

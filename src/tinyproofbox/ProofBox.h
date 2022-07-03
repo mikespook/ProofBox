@@ -21,7 +21,7 @@ class ProofBoxClass {
 		const static uint8_t Proof2Min = 36;
 		const static uint8_t Proof2Max = 38;
 
-		const static uint8_t DeathMax = 45;
+		const static uint8_t DeathMax = 40;
 
 		ProofBoxClass() {};
 
@@ -35,9 +35,9 @@ class ProofBoxClass {
 		const static uint8_t PinDHT = 4;
 
 		const static float HeatOnTickBase = 1.5;	
-		const static uint16_t HeatOnTickAdjust = 2000;
+		const static uint16_t HeatOnTickAdjust = 3000;
 		const static float HeatOffTickBase = 5;		
-		const static uint16_t HeatOffTickAdjust = 5000;
+		const static uint16_t HeatOffTickAdjust = 3000;
 		const static uint16_t FanTick = 60000;
 
 		uint64_t lastRead;
@@ -62,6 +62,7 @@ class ProofBoxClass {
 		uint32_t onTick(float current, float target);
 
 		void debug(const char*, float t, float h);
+		void debug(const char*, float t, float h, bool cached);
 };
 
 static ProofBoxClass ProofBox;

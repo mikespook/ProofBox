@@ -69,9 +69,10 @@ void loop() {
 					break;
 			}
 			Button.ended();
-			return;
+			break;
 		}
 		LCD.holding(c);
+		wdt_reset();
 	}
 	state(ProofBox.current());
 	if (ProofBox.loop(&t, &h)) {
