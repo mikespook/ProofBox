@@ -1,6 +1,7 @@
 #ifndef TPB_BUZZER_H
 #define TPB_BUZZER_H
 
+#include <avr/wdt.h>
 #include <Arduino.h>
 
 class BuzzerClass {
@@ -24,6 +25,7 @@ class BuzzerClass {
 	
 	void play(uint16_t seq[], size_t l) {
 		for(int i = 0; i < l; i++) {
+			wdt_reset();
 			tone(Pin, seq[i], Tick);
 			delay(Tick);
 		}

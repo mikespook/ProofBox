@@ -12,8 +12,8 @@ class ProofBoxClass {
 		const static uint8_t StateProof1 = 2;
 		const static uint8_t StateProof2 = 3;
 
-		const static uint8_t StarterMin = 21;
-		const static uint8_t StarterMax = 23;
+		const static uint8_t StarterMin = 22;
+		const static uint8_t StarterMax = 24;
 
 		const static uint8_t Proof1Min = 26;
 		const static uint8_t Proof1Max = 28;

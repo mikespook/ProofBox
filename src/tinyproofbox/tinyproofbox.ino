@@ -48,8 +48,9 @@ void state(int n) {
 }
 
 void loop() {
+	wdt_reset();
 	LCD.autoBacklight();
-	while (Button.pressed()) {
+	if (Button.pressed()) {
 		// turn on LCD
 		LCD.backlight();
 		uint8_t c = Button.countdown();
@@ -68,11 +69,13 @@ void loop() {
 					Buzzer.proof2();
 					break;
 			}
+			Serial.println("OK1");
 			Button.ended();
-			break;
+			Serial.println("OK2");	
+			return;
 		}
 		LCD.holding(c);
-		wdt_reset();
+		return;
 	}
 	state(ProofBox.current());
 	if (ProofBox.loop(&t, &h)) {
@@ -80,5 +83,4 @@ void loop() {
 	} else {
 		LCD.error();
 	}
-	wdt_reset();
 }
