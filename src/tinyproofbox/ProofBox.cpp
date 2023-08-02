@@ -93,8 +93,9 @@ bool ProofBoxClass::loop(float *t, float *h) {
 
 	// on period
 	if ((*t) < min && nextHeatOn <= now && !Heater.isOn()) {
+		Fan.on();
+		delay(100);
 		Heater.on();
-		Fan.on();			
 		nextHeatOff = now + onTick(*t, min);
 		nextHeatOn = nextHeatOff + offTick(*t, min);
 		this->debug("Heater & fan on", *t, *h);
