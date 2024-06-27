@@ -13,7 +13,7 @@ class ProofBoxClass {
 		const static uint8_t StateProof2 = 3;
 
 		const static uint8_t StarterMin = 21;
-		const static uint8_t StarterMax = 22;
+		const static uint8_t StarterMax = 23;
 
 		const static uint8_t Proof1Min = 26;
 		const static uint8_t Proof1Max = 28;
@@ -38,7 +38,7 @@ class ProofBoxClass {
 		const static uint16_t HeatOnTickAdjust = 3000;
 		const static float HeatOffTickBase = 5;		
 		const static uint16_t HeatOffTickAdjust = 3000;
-		const static uint16_t FanTick = 60000;
+		const static uint16_t FanTick = 30000;
 
 		uint64_t lastRead;
 
